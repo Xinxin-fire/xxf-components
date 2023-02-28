@@ -1,0 +1,27 @@
+{
+  "name": "xxf-components",
+  "version": "1.0.0",
+  "description": "一个基于element-ui 封装的组件库",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Xinxin-fire",
+  
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Xinxin-fire/xxf-components.git"
+  },
+  "homepage": "https://github.com/Xinxin-fire/xxf-components",
+  "keywords": [
+    "element-ui",
+    "vue",
+    "components"
+  ],
+  "license": "MIT",
+  "bugs": "https://github.com/Xinxin-fire/xxf-components/issues",
+  "peerDependencies": {
+    "vue": "^2.6.14",
+    "element-ui": "^2.15.13"
+  }
+}
