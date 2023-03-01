@@ -1,8 +1,6 @@
 <template>
   <div id="app" >
-    123
-     <el-input v-model="input" placeholder="Please input" />
-    <XxfInput></XxfInput>
+    <XxfFormTable :formContent="formContent" :tableHead="tableHead" />
   </div>
 </template>
 
@@ -13,6 +11,15 @@
     data() {
       return {
         input: 1,
+        formContent: [
+          {type: 'xxfInput', prop: 'name', value: '' },
+          {type: 'xxfSelect', prop: 'status', value: '' },
+        ],
+        tableHead: [
+          {prop: 'name', label: '姓名'},
+          {prop: 'status', label: '状态'},
+          {prop: 'address', label: '地址'}
+        ],
       }
     },
     mounted() {
