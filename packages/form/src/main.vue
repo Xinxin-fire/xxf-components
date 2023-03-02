@@ -1,25 +1,38 @@
 <template>
   <div class="xxf-form">
-    <component
-      v-for="item in formContent" 
-      :key="item.prop"
-      v-bind:is="item.type"
-    />
-    <!-- <XxfInput></XxfInput>
-    <XxfSelect></XxfSelect> -->
+    <el-form ref="form" :model="form" :label-width="labelWidth">
+      <el-form-item v-for="item in Object.keys(formConfig)" :key="item"  :label="formConfig[item].label">
+        <el-col>
+          <component
+            :form="form"
+            :prop="item"
+            :is="formConfig[item].type"
+            :config="formConfig[item]"
+          />
+        </el-col>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 
 <script>
-import input from "../../input/src/main.vue";
-import select from "../../select/src/main.vue";
+import xxfInput from "../../input";
+import xxfSelect from "../../select";
   export default {
     name: 'XxfForm',
-    components: {xxfInput: input, xxfSelect: select },
+    components: {xxfInput, xxfSelect },
     props: {
-      formContent: {
-        type: Array,
-        default: () => []
+      form: {
+        type: Object,
+        default: () => {}
+      },
+      labelWidth: {
+        type: String,
+        default: '80px'
+      },
+      formConfig: {
+        type: Object,
+        default: () => {}
       }
     },
     data() {

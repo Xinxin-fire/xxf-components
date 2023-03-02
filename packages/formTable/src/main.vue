@@ -1,29 +1,31 @@
 <template>
   <div class="xxf--table">
-    <XxfForm :formContent="formContent" />
+    <XxfSearch :searchConfig="searchConfig" />
     <XxfTable :tableHead="tableHead" />
   </div>
 </template>
 
 <script>
+import XxfSearch from '../../search';
+import XxfTable from '../../table';
 
   export default {
-    name: 'XxfFormTable',
-    
+    name: "XxfFormTable",
+    components: { XxfSearch, XxfTable},
     props: {
-      formContent: {
-        type: Array,
-        default: () => []
-      },
-      tableHead: {
-        type: Array,
-        default: () => []
-      }
+        searchConfig: {
+            type: Array,
+            default: () => []
+        },
+        tableHead: {
+            type: Array,
+            default: () => []
+        }
     },
     data() {
-      return {
-        input: 123
-      };
-    },
-  };
+        return {
+            input: 123
+        };
+    }
+};
 </script>
