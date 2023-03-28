@@ -1,9 +1,10 @@
 <template>
   <el-select v-model="form[prop]" placeholder="请选择">
     <el-option
-      v-for="item in config.options"
+      v-for="item in itemConfig.options"
       :key="item.value"
       :label="item.label"
+      :disabled="itemConfig.disabled"
       :value="item.value">
     </el-option>
   </el-select>
@@ -13,7 +14,7 @@
   export default {
     name: 'XxfSelect',
     props: {
-      config: {
+      itemConfig: {
         type: Object,
         default: () => {}
       },
@@ -31,10 +32,22 @@
         value: ''
       }
     },
-    mounted() {
-      // console.log(this.form)
-      // console.log(this.prop)
-      // console.log(this.config)
+    created() {
+      this.initWatch()
+    },
+    methods: {
+      initWatch() {
+        console.log(this.itemConfig);
+        if (this.itemConfig.linkValue && typeof this.itemConfig.linkFunction === 'function') {
+          this.itemConfig.linkValue.forEach(element => {
+            const watchKey = `form.${element}`
+            console.log(watchKey);
+            this.$watch(watchKey, (newValue, oldValue) => {
+              this.itemConfig.linkFunction(this.form, this.itemConfig, newValue, oldValue)
+            })
+          });
+        }
+      }
     }
   };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <!-- <XxfFormTable :searchConfig="searchConfig" :tableHead="tableHead" /> -->
-    <XxfForm class="xxf-form" :formConfig="formConfig" :form="form" />
+    <XxfForm class="xxf-form" :formConfig="formConfig" :form="form"/>
   </div>
 </template>
 
@@ -11,13 +11,11 @@ export default {
   data() {
     return {
       input: 1,
-      // formConfig: [
-      //   {type: 'xxfInput', prop: 'name', value: '' },
-      //   {type: 'xxfSelect', prop: 'status', value: '' },
-      // ],
       form: {
-        contract: 1,
-        contractName: "1",
+        contract: '',
+        contractName: "",
+        settle: '',
+        settleName: ''
       },
       formConfig: {
         contract: {
@@ -32,12 +30,45 @@ export default {
           type: "xxfInput",
           label: "合同名称",
           linkValue: ["contract"],
-          linkFunction: (form, newValue, oldValue) => {
+          linkFunction: (form, itemConfig, newValue, oldValue) => {
             if (newValue === 1) {
-              console.log(this);
               form.contractName = "正式合同";
+              itemConfig.disabled= true;
             } else {
               form.contractName = "临时合同";
+              itemConfig.disabled= false;
+            }
+          },
+        },
+        settle: {
+          type: "xxfSelect",
+          label: "结算类型",
+          options: [],
+          linkValue: ["contract"],
+          linkFunction: (form, itemConfig, newValue, oldValue) => {
+            if (newValue === 1) {
+              itemConfig.options = [
+              { label: "按月结算", value: 1 },
+              { label: "按年结算", value: 2 },
+              ];
+            } else {
+              itemConfig.options = [
+                { label: "临时结算", value: 3 },
+                { label: "按日结算", value: 4 },
+              ];
+            }
+          },
+        },
+        settleName: {
+          type: "xxfInput",
+          label: "合同名称",
+          linkValue: ["contract", 'settle'],
+          linkFunction: (form, itemConfig, newValue, oldValue) => {
+            console.log(form.contract, form.settle);
+            if (form.contract === 1 && form.settle === 1) {
+              form.settleName = "已结算";
+            } else {
+              form.settleName = "未结算";
             }
           },
         },
@@ -54,6 +85,11 @@ export default {
     };
   },
   mounted() {},
+  methods: {
+    change() {
+      console.log(1);
+    }
+  }
 };
 </script>
 

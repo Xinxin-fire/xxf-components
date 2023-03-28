@@ -4,10 +4,11 @@
       <el-form-item v-for="item in Object.keys(formConfig)" :key="item"  :label="formConfig[item].label">
         <el-col>
           <component
+            v-on="$listeners"
             :form="form"
             :prop="item"
             :is="formConfig[item].type"
-            :config="formConfig[item]"
+            :itemConfig="formConfig[item]"
           />
         </el-col>
       </el-form-item>

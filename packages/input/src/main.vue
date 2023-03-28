@@ -1,7 +1,8 @@
 <template>
   <el-input 
-    v-model="form[prop]" 
-    :placeholder="config.placeholder" 
+    v-model="form[prop]"
+    :placeholder="itemConfig.placeholder"
+    :disabled="itemConfig.disabled"
     style="width: 300px" 
   />
 </template>
@@ -10,7 +11,7 @@
   export default {
     name: 'XxfInput',
     props: {
-      config: {
+      itemConfig: {
         type: Object,
         default: () => {}
       },
@@ -33,12 +34,12 @@
     },
     methods: {
       initWatch() {
-        if (this.config.linkValue && typeof this.config.linkFunction === 'function') {
-          this.config.linkValue.forEach(element => {
+        if (this.itemConfig.linkValue && typeof this.itemConfig.linkFunction === 'function') {
+          this.itemConfig.linkValue.forEach(element => {
             const watchKey = `form.${element}`
             console.log(watchKey);
             this.$watch(watchKey, (newValue, oldValue) => {
-              this.config.linkFunction(this.form, newValue, oldValue)
+              this.itemConfig.linkFunction(this.form, this.itemConfig, newValue, oldValue)
             })
           });
         }
